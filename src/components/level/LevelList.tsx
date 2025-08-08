@@ -2,6 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { PROD_URL } from "../../config/baseURL";
 import FromButton from "./FormButton";
+import FromButtonEdit from "./FormButtonEdit";
 
 interface Level {
   level_id: number;
@@ -35,7 +36,7 @@ export default function LevelList() {
   const handleDelete = async (level_id: number) => {
     if (!window.confirm("Are you sure you want to delete this level?")) return;
     try {
-      await axios.delete(`${PROD_URL}/api/v2/level/${level_id}`, {
+      await axios.delete(`${PROD_URL}/api/v2/delete/level/${level_id}`, {
         withCredentials: true,
       });
       alert("Level deleted successfully!");
@@ -46,9 +47,6 @@ export default function LevelList() {
     }
   };
 
-  const handleEdit = (level: Level) => {
-    alert(`Edit level: ${level.level_name} (id: ${level.level_id})`);
-  };
 
   return (
     <div className="w-full">
@@ -88,12 +86,7 @@ export default function LevelList() {
                     {new Date(level.created_at).toLocaleString()}
                   </td>
                   <td className="px-6 py-3 gap-2 flex flex-wrap">
-                    <button
-                      onClick={() => handleEdit(level)}
-                      className="px-3 py-1 text-xs font-medium text-white bg-blue-600 rounded hover:bg-blue-700"
-                    >
-                      Edit
-                    </button>
+                    <FromButtonEdit getAllLevel={getAllLevel} level_id={level.level_id}/>
                     <button
                       onClick={() => handleDelete(level.level_id)}
                       className="px-3 py-1 text-xs font-medium text-white bg-red-600 rounded hover:bg-red-700"

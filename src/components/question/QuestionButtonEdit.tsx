@@ -1,9 +1,10 @@
 import { useState } from "react";
-import LevelForm from "./LevelForm";
-interface FromButtonProps {
-  getAllLevel: () => void;
+import QuestionFormEdit from "./QuestionFormEdit";
+interface QuestionFromButtonProps {
+  getAllQuestion: () => void;
+  dt_id: number
 }
-export default function FromButton({ getAllLevel }: FromButtonProps) {
+export default function QuestionFromButtonEdit({ getAllQuestion,dt_id }: QuestionFromButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -13,12 +14,12 @@ export default function FromButton({ getAllLevel }: FromButtonProps) {
         onClick={() => setIsOpen(true)}
         className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition"
       >
-        + Add New Level
+        Edit
       </button>
 
       {/* Modal Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex items-center justify-center z-50">
           {/* Modal Container */}
           <div className="bg-white rounded-xl shadow-xl p-6 relative max-w-lg w-full">
             {/* Close Button */}
@@ -30,9 +31,10 @@ export default function FromButton({ getAllLevel }: FromButtonProps) {
             </button>
 
             {/* Asset Form */}
-            <LevelForm
+            <QuestionFormEdit
               onClose={() => setIsOpen(false)}
-              getAllLevel={getAllLevel}
+              getAllQuestion={getAllQuestion}
+              dt_id={dt_id}
             />
           </div>
         </div>

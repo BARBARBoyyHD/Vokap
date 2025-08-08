@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AssetEditModal from "./AssetEditModal";
-import type { Assets } from "../../types/Assets";
 interface AssetFormProps {
     asset_id: number
 }

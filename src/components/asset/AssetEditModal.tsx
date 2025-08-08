@@ -10,7 +10,6 @@ interface AssetFormProps {
 export default function EditAssetForm({ onClose, asset_id }: AssetFormProps) {
   const [assetName, setAssetName] = useState("");
   const [image, setImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +33,7 @@ export default function EditAssetForm({ onClose, asset_id }: AssetFormProps) {
       );
       const data = res.data.data;
       setAssetName(data.asset_name);
-      setImagePreview(data.asset_file_name);
+      setImage(data.asset_file_name);
       console.log("detail asset : ", data);
     } catch (error) {
       console.error(error);

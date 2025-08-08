@@ -20,8 +20,8 @@ interface UserInfo {
 const sidebarMenu: MenuItem[] = [
   { name: "Asset", path: "/asset/pages" },
   { name: "Level", path: "/level/pages" },
-  { name: "Question", path: "/question" },
-  { name: "Word Shuffle", path: "/wordshuffle" },
+  { name: "Question", path: "/question/pages" },
+  { name: "Word Shuffle", path: "/wordshuffle/pages" },
 ];
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
