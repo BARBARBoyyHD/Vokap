@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import type { login } from "../../types/AuthUser";
-import { BASE_URL } from "../../config/baseURl";
+import { BASE_URL,PROD_URL } from "../../config/baseURl";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginComponents() {
-  const [form, setForm] = useState<LoginPayload>({
+  const [form, setForm] = useState<login>({
     username: "",
     password: "",
   });
@@ -27,7 +27,7 @@ export default function LoginComponents() {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${BASE_URL}/api/v2/login`, form, {
+      const res = await axios.post(`${PROD_URL}/api/v2/login`, form, {
         withCredentials: true,
       });
 
