@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import type { login } from "../../types/AuthUser";
-import { BASE_URL,PROD_URL } from "../../config/baseURl";
+import { PROD_URL } from "../../config/baseURL";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginComponents() {

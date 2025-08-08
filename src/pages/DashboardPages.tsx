@@ -1,5 +1,4 @@
 // pages/DashboardPages.tsx
-import React from "react";
 import Layout from "../components/ui/Layout";
 
 export default function DashboardPages() {

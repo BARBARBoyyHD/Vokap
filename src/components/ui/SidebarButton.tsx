@@ -1,5 +1,4 @@
 // components/SidebarToggleButton.tsx
-import React from "react";
 
 interface SidebarToggleButtonProps {
   onClick: () => void;
