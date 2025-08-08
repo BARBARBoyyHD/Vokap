@@ -1,4 +1,4 @@
-import{ useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MdOutlineLogout } from "react-icons/md";
 
@@ -18,8 +18,8 @@ interface UserInfo {
 }
 
 const sidebarMenu: MenuItem[] = [
-  { name: "Asset", path: "/asset" },
-  { name: "Level", path: "/level" },
+  { name: "Asset", path: "/asset/pages" },
+  { name: "Level", path: "/level/pages" },
   { name: "Question", path: "/question" },
   { name: "Word Shuffle", path: "/wordshuffle" },
 ];

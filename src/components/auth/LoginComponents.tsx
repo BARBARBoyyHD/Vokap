@@ -36,6 +36,7 @@ export default function LoginComponents() {
       alert(`Welcome, ${user.username} (${user.role})`);
       localStorage.setItem("username", JSON.stringify(user.username));
       localStorage.setItem("role", JSON.stringify(user.role));
+      localStorage.setItem("user_id", JSON.stringify(user.user_id));
       navigate("/");
       // Optional: redirect or store token
     } catch (error: any) {
