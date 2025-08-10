@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { PROD_URL } from "../../config/baseURL";
 import axios from "axios";
 
-interface QuestionFormEditProps {
+interface WordShuffleFormProps {
   onClose: () => void;
-  getAllQuestion: () => void;
-  dt_id: number;
+  getAllWordShuffle: () => void;
+  id: number;
 }
 
-export default function QuestionFormEdit({
+export default function WordShuffleFormEdit({
   onClose,
-  getAllQuestion,
-  dt_id,
-}: QuestionFormEditProps) {
+  getAllWordShuffle,
+  id,
+}: WordShuffleFormProps) {
   const [levels, setLevels] = useState<
     { level_id: number; level_name: string }[]
   >([]);
@@ -22,7 +22,7 @@ export default function QuestionFormEdit({
 
   const [selectedLevelId, setSelectedLevelId] = useState<number | null>(null);
   const [levelNumber, setLevelNumber] = useState<number>(1);
-  const [question, setQuestion] = useState("");
+  const [WordShuffle, setWordShuffle] = useState("");
   const [answer, setAnswer] = useState("");
   const [selectedAssetId, setSelectedAssetId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
@@ -46,58 +46,40 @@ export default function QuestionFormEdit({
       .catch((err) => console.error(err));
   };
 
-  const detailQuestion = async () => {
+  const detailWordShuffle = async () => {
     try {
       const res = await axios.get(
-        `${PROD_URL}/api/v2/detail/question/${dt_id}`,
-        {
-          withCredentials: true,
-        }
+        `${PROD_URL}/api/v2/detail/wordshuffle/${id}`,
+        { withCredentials: true }
       );
-  
       const data = res.data.data;
       setSelectedLevelId(data.level_id);
-      setLevelNumber(data.level_number);
-      setQuestion(data.question);
+      setWordShuffle(data.question);
       setAnswer(data.answer);
-      setSelectedAssetId(data.asset.asset_id);
-    } catch (error) {
-      console.error(error);
+      setLevelNumber(data.question_number);
+      setSelectedAssetId(data.asset_filet.asset_id);
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  useEffect(() => {
-    AllLevel();
-    AllAsset();
-    detailQuestion();
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const user_id = Number(localStorage.getItem("user_id") || 0);
 
     if (!selectedLevelId || !selectedAssetId) {
       alert("Please select both level and asset.");
       return;
     }
 
-    // Get the level_name from the selected level_id
-    const selectedLevel = levels.find(
-      (lvl) => lvl.level_id === selectedLevelId
-    );
-    const level_name = selectedLevel ? selectedLevel.level_name : "";
-
     try {
       setLoading(true);
       await axios.put(
-        `${PROD_URL}/api/v2/edit/question/${dt_id}`,
+        `${PROD_URL}/api/v2/edit/wordshuffle/${id}`,
         {
           level_id: selectedLevelId,
-          level_name, // added this
-          level_number: levelNumber,
-          user_id,
-          question,
+          question: WordShuffle,
           answer,
+          question_number: levelNumber,
           asset_file: selectedAssetId,
         },
         {
@@ -106,21 +88,26 @@ export default function QuestionFormEdit({
         }
       );
 
-      alert("Question Edited successfully!");
-      getAllQuestion();
+      alert("WordShuffle Edited successfully!");
+      getAllWordShuffle();
       onClose();
     } catch (err) {
       console.error(err);
-      alert("Failed to add question.");
+      alert("Failed to add WordShuffle.");
     } finally {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    AllLevel();
+    AllAsset();
+    detailWordShuffle();
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="w-full">
       <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
-        Edit Question
+        Edit Word Shuffle
       </h2>
 
       {/* Level dropdown */}
@@ -155,17 +142,17 @@ export default function QuestionFormEdit({
         />
       </div>
 
-      {/* Question */}
+      {/* WordShuffle */}
       <div className="mb-4">
         <label className="block text-gray-700 font-semibold mb-2">
-          Question
+          WordShuffle
         </label>
         <input
           type="text"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
+          value={WordShuffle}
+          onChange={(e) => setWordShuffle(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-          placeholder="Enter question"
+          placeholder="Enter WordShuffle"
           required
         />
       </div>

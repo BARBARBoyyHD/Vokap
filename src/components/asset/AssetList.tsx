@@ -26,6 +26,7 @@ export const AssetList = () => {
         withCredentials: true,
       });
       setAssets((prev) => prev.filter((asset: any) => asset.asset_id !== id));
+      getAssets();
     } catch (error) {
       console.error(error);
       alert("Failed to delete asset");
@@ -71,7 +72,10 @@ export const AssetList = () => {
 
               {/* Buttons */}
               <div className="mt-4 flex gap-2">
-                <AssetEditButton asset_id={asset.asset_id} />
+                <AssetEditButton
+                  getAllAsset={getAssets}
+                  asset_id={asset.asset_id}
+                />
                 <button
                   onClick={() => handleDelete(asset.asset_id)}
                   className=" bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition"

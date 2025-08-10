@@ -1,9 +1,11 @@
 import { useState } from "react";
-import AssetForm from "./AssetForm";
-interface AssetButtonProps {
-  getAllAsset: () => void;
+import WordShuffleFormEdit from "./WordShuffleFormEdit";
+interface WordShuffleFromButtonProps {
+  getAllWordShuffle: () => void;
+  id: number
 }
-export default function AssetButton({ getAllAsset }: AssetButtonProps) {
+
+export default function WordShuffleFromButtonEdit({ getAllWordShuffle,id }: WordShuffleFromButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -13,7 +15,7 @@ export default function AssetButton({ getAllAsset }: AssetButtonProps) {
         onClick={() => setIsOpen(true)}
         className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition"
       >
-        + Add Asset
+        Edit
       </button>
 
       {/* Modal Overlay */}
@@ -30,9 +32,10 @@ export default function AssetButton({ getAllAsset }: AssetButtonProps) {
             </button>
 
             {/* Asset Form */}
-            <AssetForm
+            <WordShuffleFormEdit
               onClose={() => setIsOpen(false)}
-              getAllAsset={getAllAsset}
+              getAllWordShuffle={getAllWordShuffle}
+              id={id}
             />
           </div>
         </div>

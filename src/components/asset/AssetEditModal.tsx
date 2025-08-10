@@ -4,10 +4,15 @@ import axios from "axios";
 
 interface AssetFormProps {
   onClose: () => void;
+  getAllAsset: () => void;
   asset_id: number;
 }
 
-export default function EditAssetForm({ onClose, asset_id }: AssetFormProps) {
+export default function EditAssetForm({
+  onClose,
+  getAllAsset,
+  asset_id,
+}: AssetFormProps) {
   const [assetName, setAssetName] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -27,14 +32,12 @@ export default function EditAssetForm({ onClose, asset_id }: AssetFormProps) {
     try {
       const res = await axios.get(
         `${PROD_URL}/api/v2/detail/assets/${asset_id}`,
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
       const data = res.data.data;
       setAssetName(data.asset_name);
-      setImage(data.asset_file_name);
-      console.log("detail asset : ", data);
+      setImage(null); // No new file selected yet
+      setPreview(`${data.asset_file_name}`);
     } catch (error) {
       console.error(error);
     }
@@ -52,17 +55,24 @@ export default function EditAssetForm({ onClose, asset_id }: AssetFormProps) {
     const formData = new FormData();
     formData.append("asset_name", assetName);
     formData.append("user_id", user_id || "");
+
+    // If new image selected, upload it
     if (image) {
-      formData.append("Image", image); // only if new image selected
+      formData.append("Image", image);
+    }
+    // If no new image, just send existing URL/path
+    else if (preview) {
+      formData.append("asset_file_name", preview);
     }
 
     try {
       setLoading(true);
-      await axios.post(`${PROD_URL}/api/v2/assets/edit/`, formData, {
+      await axios.put(`${PROD_URL}/api/v2/assets/edit/${asset_id}`, formData, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("Asset updated successfully!");
+      getAllAsset();
       onClose();
     } catch (err) {
       console.error(err);

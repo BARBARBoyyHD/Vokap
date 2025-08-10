@@ -25,9 +25,7 @@ export default function LevelFormEdit({
         }
       );
       const data = res.data.data;
-      console.log(data);
       setlevelName(data.level_name);
-      console.log("detail level : ", data);
     } catch (error) {
       console.error(error);
     }

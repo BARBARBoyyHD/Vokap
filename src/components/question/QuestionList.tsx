@@ -36,7 +36,6 @@ export default function QuestionList() {
         withCredentials: true,
       });
       const data = res.data.data;
-      console.log(data);
       setQuestions(data || []);
     } catch (error) {
       console.error(error);

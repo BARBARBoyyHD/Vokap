@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardPages from "./pages/DashboardPages";
 import LoginPages from "./pages/auth/LoginPages";
+import RegisterPages from "./pages/auth/RegisterPages";
 import Notfound from "./pages/404/Notfound";
 import AssetPages from "./pages/AssetPages";
 import LevelPages from "./pages/LevelPages";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Question/pages" element={<QuestionPages />} />
           <Route path="/WordShuffle/pages" element={<WordShufflePages />} />
         </Route>
+        <Route path="/Register/pages" element={<RegisterPages />} />
         <Route path="/auth/login" element={<LoginPages />} />
         <Route path="*" element={<Notfound />} />
       </Routes>

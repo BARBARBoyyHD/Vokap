@@ -1,10 +1,14 @@
 import { useState } from "react";
 import AssetEditModal from "./AssetEditModal";
 interface AssetFormProps {
-    asset_id: number
+  asset_id: number;
+  getAllAsset: () => void;
 }
 
-export default function AssetEditButton({asset_id}:AssetFormProps) {
+export default function AssetEditButton({
+  asset_id,
+  getAllAsset,
+}: AssetFormProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,7 +23,7 @@ export default function AssetEditButton({asset_id}:AssetFormProps) {
 
       {/* Modal Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex items-center justify-center z-50">
           {/* Modal Container */}
           <div className="bg-white rounded-xl shadow-xl p-6 relative max-w-lg w-full">
             {/* Close Button */}
@@ -31,7 +35,11 @@ export default function AssetEditButton({asset_id}:AssetFormProps) {
             </button>
 
             {/* Asset Form */}
-            <AssetEditModal onClose={() => setIsOpen(false)} asset_id={asset_id}  />
+            <AssetEditModal
+              getAllAsset={getAllAsset}
+              onClose={() => setIsOpen(false)}
+              asset_id={asset_id}
+            />
           </div>
         </div>
       )}
